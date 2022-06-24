@@ -1,0 +1,15 @@
+{
+  "name": "app_node_koa",
+  "version": "1.0.0",
+  "description": "use koa",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Irwinet",
+  "license": "ISC",
+  "dependencies": {
+    "koa": "^2.13.4",
+    "nodemon": "^2.0.18"
+  }
+}
