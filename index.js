@@ -1,6 +1,8 @@
 const Koa = require('koa');
 const compose = require('koa-compose');
 const fs = require('mz/fs');
+const path = require('path');
+const serve = require('koa-static');
 
 const app = new Koa();
 
@@ -100,6 +102,7 @@ app.use(async function(ctx, next){
 });
 */
 
+/*
 app.use(async function(ctx,next){
     const paths = await fs.readdir('docs');
     const files = await Promise.all(paths.map(path => fs.readFile(`docs/${path}`, 'utf8')));
@@ -107,5 +110,14 @@ app.use(async function(ctx,next){
     ctx.type = 'markdown';
     ctx.body = files.join(' ');
 });
+*/
+
+//Debugging Koa
+//DEBUG=koa* node --harmony index.js
+
+const publicFiles = serve(path.join(__dirname,'public'));
+publicFiles._name = 'static /public';
+
+app.use(publicFiles);
 
 app.listen(3000);
