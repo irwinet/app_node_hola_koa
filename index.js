@@ -42,6 +42,7 @@ app.use(logger());
 app.use(logger(':method :url'));
 */
 
+/*
 const compose = require('koa-compose');
 
 async function random(ctx, next) {
@@ -74,5 +75,25 @@ async function pi(ctx, next) {
 const all = compose([random, backwards, pi]);
 
 app.use(all);
+*/
+
+app.use(async function(ctx, next){
+    console.log('>> one');
+    await next();
+    console.log('<< one')
+});
+
+app.use(async function(ctx, next){
+    console.log('>> two');
+    ctx.body = 'two';
+    //await next();
+    console.log('<< two')
+});
+
+app.use(async function(ctx, next){
+    console.log('>> three');
+    await next();
+    console.log('<< three')
+});
 
 app.listen(3000);
