@@ -1,6 +1,7 @@
 const Koa = require('koa');
 const app = new Koa();
 
+/*
 //x-response-time
 app.use(async (ctx, next) => {
     const start = Date.now(); // 1
@@ -21,5 +22,20 @@ app.use(async (ctx, next)=>{
 app.use(ctx => {
     ctx.body = 'Hola Mundo!' // 5
 });
+*/
+
+function logger(format) {
+    format = format || ':method ":url"';
+    return async function (ctx, next) {
+        const str = format.replace(':method', ctx.method)
+            .replace(':url', ctx.url);
+
+        console.log(str);
+        await next();
+    }
+}
+
+app.use(logger());
+app.use(logger(':method :url'));
 
 app.listen(3000);
