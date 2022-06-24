@@ -1,4 +1,7 @@
 const Koa = require('koa');
+const compose = require('koa-compose');
+const fs = require('mz/fs');
+
 const app = new Koa();
 
 
@@ -43,7 +46,6 @@ app.use(logger(':method :url'));
 */
 
 /*
-const compose = require('koa-compose');
 
 async function random(ctx, next) {
     if (ctx.path == '/random') {
@@ -77,6 +79,7 @@ const all = compose([random, backwards, pi]);
 app.use(all);
 */
 
+/*
 app.use(async function(ctx, next){
     console.log('>> one');
     await next();
@@ -94,6 +97,15 @@ app.use(async function(ctx, next){
     console.log('>> three');
     await next();
     console.log('<< three')
+});
+*/
+
+app.use(async function(ctx,next){
+    const paths = await fs.readdir('docs');
+    const files = await Promise.all(paths.map(path => fs.readFile(`docs/${path}`, 'utf8')));
+
+    ctx.type = 'markdown';
+    ctx.body = files.join(' ');
 });
 
 app.listen(3000);
