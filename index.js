@@ -3,9 +3,10 @@ const compose = require('koa-compose');
 const fs = require('mz/fs');
 const path = require('path');
 const serve = require('koa-static');
+const Router = require('koa-router');
 
 const app = new Koa();
-
+var router = new Router();
 
 /*
 //x-response-time
@@ -115,9 +116,23 @@ app.use(async function(ctx,next){
 //Debugging Koa
 //DEBUG=koa* node --harmony index.js
 
+/*
 const publicFiles = serve(path.join(__dirname,'public'));
 publicFiles._name = 'static /public';
 
 app.use(publicFiles);
+*/
+
+router.get('/', (ctx, next) => {
+    ctx.body = "home";
+});
+
+router.get('/users', (ctx, next) => {
+    ctx.body = "users";
+});
+
+app
+    .use(router.routes())
+    .use(router.allowedMethods());
 
 app.listen(3000);

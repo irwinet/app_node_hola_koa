@@ -9,8 +9,11 @@
   "author": "Irwinet",
   "license": "ISC",
   "dependencies": {
+    "@koa/router": "^11.0.1",
+    "@types/koa__router": "^8.0.11",
     "koa": "^2.13.4",
     "koa-compose": "^4.1.0",
+    "koa-router": "^11.0.1",
     "koa-static": "^5.0.0",
     "mz": "^2.7.0",
     "nodemon": "^2.0.18"
